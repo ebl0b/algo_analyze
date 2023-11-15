@@ -1,0 +1,15 @@
+#ifndef UI_H
+#define UI_H
+
+enum choices{MENU, CLS, QUIT, 
+			BUBBLE_BEST, BUBBLE_WORST, BUBBLE_AVG, 
+			INSERTION_BEST, INSERTION_WORST, INSERTION_AVG,
+			QUICK_BEST, QUICK_WORST, QUICK_AVG,
+			LINEAR_BEST, LINEAR_WORST, LINEAR_AVG,
+			BINARY_BEST, BINARY_WORST, BINARY_AVG};
+typedef enum choices choice_t;
+
+void ui_start();
+
+
+#endif
