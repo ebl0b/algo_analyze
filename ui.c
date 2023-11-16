@@ -33,24 +33,10 @@ static void ui_results(result_t *results){
 
 }
 
-static void ui_sort_analyze(int c, sort_function *algo, result_t* results){
-	int *a = get_arr(c);
-	sort_parameters sort_params = {algo, a, sizeof(a)/sizeof(int)};
-	benchmark(sort_wrapper, (void*)&sort_params, results, RESULT_COUNT);
-}
-static void ui_search_analyze(int c, search_function *algo, result_t* results){
-	int *a = get_arr(c);
-	int v = get_val(c);
-	search_parameters search_params = {algo, a, sizeof(a)/sizeof(int), v};
-	benchmark(search_wrapper, (void*)&search_params, results, RESULT_COUNT);
-}
-
-
 //public
 void ui_start(){
 	result_t *results;
 	bool running = true;
-
 	cls();
 	ui_menu();
 	while(running){
@@ -66,63 +52,63 @@ void ui_start(){
 				message("Quitting...");
 				exit(0);
 			case BUBBLE_BEST:
-				ui_sort_analyze(BUBBLE_BEST, bubble_sort, results);
+				sort_analyze(gen_bubins_best, bubble_sort, results);
 				ui_results(results);
 				break;
 			case BUBBLE_WORST:
-				ui_sort_analyze(BUBBLE_WORST, bubble_sort, results);
+				sort_analyze(gen_bubins_worst, bubble_sort, results);
 				ui_results(results);
 				break;
 			case BUBBLE_AVG:
-				ui_sort_analyze(BUBBLE_AVG, bubble_sort, results);
+				sort_analyze(gen_bubins_avg, bubble_sort, results);
 				ui_results(results);
 				break;
 			case INSERTION_BEST:
-				ui_sort_analyze(INSERTION_BEST, insertion_sort, results);
+				sort_analyze(gen_bubins_best, insertion_sort, results);
 				ui_results(results);
 				break;
 			case INSERTION_WORST:
-				ui_sort_analyze(INSERTION_WORST, insertion_sort, results);
+				sort_analyze(gen_bubins_worst, insertion_sort, results);
 				ui_results(results);
 				break;
 			case INSERTION_AVG:
-				ui_sort_analyze(INSERTION_AVG, insertion_sort, results);
+				sort_analyze(gen_bubins_avg, insertion_sort, results);
 				ui_results(results);
 				break;
 			case QUICK_BEST:
-				ui_sort_analyze(QUICK_BEST, quick_sort, results);
+				sort_analyze(gen_quick_best, quick_sort, results);
 				ui_results(results);
 				break;
 			case QUICK_WORST:
-				ui_sort_analyze(QUICK_WORST, quick_sort, results);
+				sort_analyze(gen_quick_worst, quick_sort, results);
 				ui_results(results);
 				break;
 			case QUICK_AVG:
-				ui_sort_analyze(QUICK_AVG, quick_sort, results);
+				sort_analyze(gen_quick_avg, quick_sort, results);
 				ui_results(results);
 				break;
 			case LINEAR_BEST:
-				ui_search_analyze(LINEAR_BEST, linear_search, results);
+				search_analyze(gen_lin_best, linear_search, results);
 				ui_results(results);
 				break;
 			case LINEAR_WORST:
-				ui_search_analyze(LINEAR_WORST, linear_search, results);
+				search_analyze(gen_lin_worst, linear_search, results);
 				ui_results(results);
 				break;
 			case LINEAR_AVG:
-				ui_search_analyze(LINEAR_AVG, linear_search, results);
+				search_analyze(gen_lin_avg, linear_search, results);
 				ui_results(results);
 				break;
 			case BINARY_BEST:
-				ui_search_analyze(BINARY_BEST, binary_search, results);
+				search_analyze(gen_bin_best, binary_search, results);
 				ui_results(results);
 				break;
 			case BINARY_WORST:
-				ui_search_analyze(BINARY_WORST, binary_search, results);
+				search_analyze(gen_bin_worst, binary_search, results);
 				ui_results(results);
 				break;
 			case BINARY_AVG:
-				ui_search_analyze(BINARY_AVG, binary_search, results);
+				search_analyze(gen_bin_avg, binary_search, results);
 				ui_results(results);
 				break;
 			default:

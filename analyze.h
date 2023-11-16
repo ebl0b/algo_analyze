@@ -7,6 +7,7 @@
 #define ITERATION_COUNT 100
 #define ARRAY_SCALING_FACTOR 2
 #define KiB 1024
+#define BILLION 1000000000LL
 
 
 typedef enum{
@@ -21,7 +22,7 @@ typedef struct{
 
 typedef void (*sort_function)(int*, int);
 typedef bool (*search_function)(int*, int, int);
-typdef void (*void_func)(void);
+typedef void (*void_func)(void);
 
 typedef struct{
 	sort_function sort_func;
@@ -36,6 +37,8 @@ typedef struct{
 	int v;
 }search_parameters;
 
-void benchmark(void_func algorithm, void* params, result_t *results, int n);
+void sort_analyze(int c, sort_function *algo, result_t* results);
+void search_analyze(int c, search_function *algo, result_t* results);
+#define GET_AVG_TIME(x, y) ((double)x)/((double)y)
 
 #endif
