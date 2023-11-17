@@ -1,13 +1,16 @@
 #ifndef GENERATOR_H
 #define GENERATOR_H
 
+#define BUBINS_SIZE (1 << 10)
+#define QUICK_SIZE (1 << 11)
+#define LIN_SIZE (1 << 14)
+#define BIN_SIZE (1 << 16)
+#define UNDEFINED 0
+
 typedef enum{
-	ITTER_BEST, ITTER_WORST, ITTER_AVG,
-	REC_BEST, REC_WORST, REC_AVG, 
-	LIN_BEST, LIN_WORST, LIN_AVG,
-	BIN_BEST, BIN_WORST, BIN_AVG,
-	NUMBER_OF_GENERATORS
-}gen_key;
+	MALLOC,
+	REALLOC
+}gen_op;
 
 typedef struct{
 	int *arr;
@@ -15,22 +18,27 @@ typedef struct{
 	int val;
 }analysis_data_t;
 
-typedef analysis_data_t (*gen_funcp)(int);
+typedef analysis_data_t (*gen_funcp)(int, int);
 
-analysis_data_t gen_itter_best(int scalar);
-analysis_data_t gen_itter_worst(int scalar);
-analysis_data_t gen_itter_avg(int scalar);
+analysis_data_t gen_bubins_best(int scalar, int op);
+analysis_data_t gen_bubins_worst(int scalar, int op);
+analysis_data_t gen_bubins_avg(int scalar, int op);
 
-analysis_data_t gen_rec_best(int scalar);
-analysis_data_t gen_rec_worst(int scalar);
-analysis_data_t gen_rec_avg(int scalar);
+analysis_data_t gen_quick_best(int scalar, int op);
+analysis_data_t gen_quick_worst(int scalar, int op);
+analysis_data_t gen_quick_avg(int scalar, int op);
 
-analysis_data_t gen_lin_best(int scalar);
-analysis_data_t gen_lin_worst(int scalar);
-analysis_data_t gen_lin_avg(int scalar);
+analysis_data_t gen_lin_best(int scalar, int op);
+analysis_data_t gen_lin_worst(int scalar, int op);
+analysis_data_t gen_lin_avg(int scalar, int op);
 
-analysis_data_t gen_bin_best(int scalar);
-analysis_data_t gen_bin_worst(int scalar);
-analysis_data_t gen_bin_avg(int scalar);
+analysis_data_t gen_bin_best(int scalar, int op);
+analysis_data_t gen_bin_worst(int scalar, int op);
+analysis_data_t gen_bin_avg(int scalar, int op);
+
+void modify_ptr(void* params, analysis_data_t data);
+int* gen(int size, int op);
+int get_rand(int low, int high);
+void init_rand(void);
 
 #endif

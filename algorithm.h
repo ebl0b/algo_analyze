@@ -13,12 +13,12 @@ void insertion_sort(int *arr, int n);
 void quick_sort(int *arr, int n);
 
 // linear_search checks whether a value v is in an array arr of length n
-bool linear_search(const int *arr, int n, int v);
+bool linear_search(int *arr, int n, int v);
 
 // binary_search checks whether a value v is in a sorted arrray arr of length n
-bool binary_search(const int *arr, int n, int v);
+bool binary_search(int *arr, int n, int v);
 
 void search_wrapper(void *params);
-void sort_wrapper(void *params)
+void sort_wrapper(void *params);
 
 #endif

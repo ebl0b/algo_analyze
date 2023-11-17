@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "analyze.h"
 
 //public
 void message(char* s){
@@ -13,7 +14,9 @@ void print_menu(const char** options, int num_options){
 }
 
 void print_results(result_t *results){
-    
+    for(int i = 0; i<RESULT_COUNT; i++){
+        printf("%d\t%ld\n", results[i].size, results[i].time);
+    }
 }
 
 int input_int(){

@@ -1,7 +1,8 @@
 #include "ui.h"
-#include <stdlib.h>
+#include "generator.h"
 
-void main(){
+int main(){
+	init_rand();
 	ui_start();
-	exit(1);
+	return 1;
 }

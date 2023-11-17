@@ -1,9 +1,0 @@
-start.c			done
-algorithm.c		done
-algorithm.h 	done
-ui.c			ui_results needs work
-ui.h 			done
-io.c 			print_results needs work
-io.h 			done
-analyze.c		needs loads of work
-analyze.h 		needs work

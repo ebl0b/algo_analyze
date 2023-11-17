@@ -5,9 +5,11 @@
 #endif
 #include "algorithm.h"
 #include "generator.h"
+#include "analyze.h"
 #include <stdlib.h>
+#include <stdio.h>
 
-static void timer(long long *cpu_time, int op){
+static void timer(long *cpu_time, int op){
 	#ifdef _WIN32
 	static LARGE_INTEGER frequency;
 	LARGE_INTEGER count;
@@ -31,30 +33,18 @@ static void timer(long long *cpu_time, int op){
 	#endif
 }
 
-void sort_analyze(gen_funcp generator, sort_function algo, result_t* results){
-	analysis_data_t data = generator(1);
-	sort_parameters sort_params = {algo, data.arr, data.size};
-	benchmark(sort_wrapper, (void*)&sort_params, results, RESULT_COUNT);
-	free(data.arr);
-}
-void search_analyze(gen_funcp generator, search_function algo, result_t* results){
-	analysis_data_t data = generator(1);
-	search_parameters search_params = {algo, data.arr, data.size, data.val};
-	benchmark(search_wrapper, (void*)&search_params, generator, results, RESULT_COUNT);
-	free(data.arr);
-}
-
 static void benchmark(void_func algorithm, void* params, gen_funcp generator, result_t *results, int n)
 {
-	long long cpu_time = 0;
-	double avg_cpu_time = 0;
+	long cpu_time = 0;
+	long avg_cpu_time = 0;
 	analysis_data_t tmp;
 	for(int i = 0; i<n; i++){
 		for(int j = 0; j<ITERATION_COUNT; j++){
+			tmp = generator(i, REALLOC);
+			modify_ptr(params, tmp);
 			timer(&cpu_time, START);
 			algorithm(params);
 			timer(&cpu_time, STOP);
-			tmp = generator(i+1);
 		}
 		avg_cpu_time = GET_AVG_TIME(cpu_time, ITERATION_COUNT);
 		results[i].time = avg_cpu_time;
@@ -62,4 +52,16 @@ static void benchmark(void_func algorithm, void* params, gen_funcp generator, re
 		cpu_time = 0;
 		avg_cpu_time = 0;
 	}
+	free(tmp.arr);
+}
+
+void sort_analyze(gen_funcp generator, sort_function algo, result_t* results){
+	analysis_data_t data = generator(0, MALLOC);
+	sort_parameters sort_params = {data.arr, data.size, algo};
+	benchmark(sort_wrapper, (void*)&sort_params, generator, results, RESULT_COUNT);
+}
+void search_analyze(gen_funcp generator, search_function algo, result_t* results){
+	analysis_data_t data = generator(0, MALLOC);
+	search_parameters search_params = {data.arr, data.size, data.val, algo};
+	benchmark(search_wrapper, (void*)&search_params, generator, results, RESULT_COUNT);
 }

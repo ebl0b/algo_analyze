@@ -2,6 +2,7 @@
 #include "analyze.h"
 #include "io.h"
 #include "ui.h"
+#include "generator.h"
 #include <stdlib.h>
 
 //private
@@ -30,7 +31,7 @@ static void cls(){
 }
 
 static void ui_results(result_t *results){
-
+	print_results(results);
 }
 
 //public

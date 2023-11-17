@@ -1,5 +1,7 @@
 #include "algorithm.h"
+#include "analyze.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 //
 // Private
@@ -60,7 +62,7 @@ void quick_sort(int *a, int n)
 	quick_sort(a+pivoti+1, n-pivoti-1);
 }
 
-bool linear_search(const int *a, int n, int v)
+bool linear_search(int *a, int n, int v)
 {
 	for(int i = 0; i < n; i++){
 		if(a[i]==v){
@@ -70,7 +72,7 @@ bool linear_search(const int *a, int n, int v)
 	return false;
 }
 
-bool binary_search(const int *a, int n, int v)
+bool binary_search(int *a, int n, int v)
 {
 	int mid = n/2;
 	return	n == 0 		? false	:
@@ -81,10 +83,10 @@ bool binary_search(const int *a, int n, int v)
 
 void search_wrapper(void *params){
 	search_parameters* search_params = (search_parameters*)params;
-    bool found = search_params->search_func(search_params->a, search_params->n, search_params->v);
+    bool found = search_params->search_func(search_params->arr, search_params->size, search_params->val);
 }
 
 void sort_wrapper(void *params){
 	sort_parameters* sort_params = (sort_parameters*)params;
-    sort_params->sort_func(sort_params->a, sort_params->n);
+    sort_params->sort_func(sort_params->arr, sort_params->size);
 }
