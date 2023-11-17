@@ -30,6 +30,7 @@ static int partion(int *a, int end){
 //
 void bubble_sort(int *a, int n)
 {
+	printf("%d\n\n", n);
 	int sorted = 0;
 	while(!sorted){
 		sorted = 1;

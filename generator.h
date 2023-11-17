@@ -18,25 +18,24 @@ typedef struct{
 	int val;
 }analysis_data_t;
 
-typedef analysis_data_t (*gen_funcp)(int, int);
+typedef void (*gen_funcp)(int, int, void*);
 
-analysis_data_t gen_bubins_best(int scalar, int op);
-analysis_data_t gen_bubins_worst(int scalar, int op);
-analysis_data_t gen_bubins_avg(int scalar, int op);
+void gen_bubins_best(int scalar, int op, void* params);
+void gen_bubins_worst(int scalar, int op, void* params);
+void gen_bubins_avg(int scalar, int op, void* params);
 
-analysis_data_t gen_quick_best(int scalar, int op);
-analysis_data_t gen_quick_worst(int scalar, int op);
-analysis_data_t gen_quick_avg(int scalar, int op);
+void gen_quick_best(int scalar, int op, void* params);
+void gen_quick_worst(int scalar, int op, void* params);
+void gen_quick_avg(int scalar, int op, void* params);
 
-analysis_data_t gen_lin_best(int scalar, int op);
-analysis_data_t gen_lin_worst(int scalar, int op);
-analysis_data_t gen_lin_avg(int scalar, int op);
+void gen_lin_best(int scalar, int op, void* params);
+void gen_lin_worst(int scalar, int op, void* params);
+void gen_lin_avg(int scalar, int op, void* params);
 
-analysis_data_t gen_bin_best(int scalar, int op);
-analysis_data_t gen_bin_worst(int scalar, int op);
-analysis_data_t gen_bin_avg(int scalar, int op);
+void gen_bin_best(int scalar, int op, void* params);
+void gen_bin_worst(int scalar, int op, void* params);
+void gen_bin_avg(int scalar, int op, void* params);
 
-void modify_ptr(void* params, analysis_data_t data);
 int* gen(int size, int op);
 int get_rand(int low, int high);
 void init_rand(void);
