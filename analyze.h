@@ -16,7 +16,7 @@ typedef enum{
 
 typedef struct{
 	int size;
-	long time;
+	double time;
 }result_t;
 
 typedef void (*sort_function)(int*, int);
