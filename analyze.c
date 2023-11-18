@@ -25,10 +25,10 @@ static void timer(double *cpu_time, int op){
 	struct timespec count;
 	if(op==START){
 		clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &count);
-		*cpu_time -= (count.tv_sec * BILLION + count.tv_nsec);
+		*cpu_time -= ((double)count.tv_sec * (double)BILLION + (double)count.tv_nsec);
 	}else{
 		clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &count);
-		*cpu_time += (count.tv_sec * BILLION + count.tv_nsec);
+		*cpu_time += ((double)count.tv_sec * (double)BILLION + (double)count.tv_nsec);
 	}
 	#endif
 }
