@@ -6,7 +6,7 @@
 #define ANALYZE_H
 
 #define RESULT_COUNT 6
-#define ITERATION_COUNT 10
+#define ITERATION_COUNT 20
 #define BILLION 1000000000LL
 
 typedef enum{
@@ -35,6 +35,11 @@ typedef struct{
 	int val;
 	search_function search_func;
 }search_parameters;
+
+typedef struct{
+	int* arr;
+	int size;
+}generic_params;
 
 void sort_analyze(gen_funcp generator, sort_function algo, result_t* results);
 void search_analyze(gen_funcp generator, search_function algo, result_t* results);

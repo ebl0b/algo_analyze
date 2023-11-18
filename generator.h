@@ -1,9 +1,9 @@
 #ifndef GENERATOR_H
 #define GENERATOR_H
 
-#define BUBINS_SIZE (1 << 10)
-#define QUICK_SIZE (1 << 10)
-#define LIN_SIZE (1 << 14)
+#define BUBINS_SIZE (1 << 9)
+#define QUICK_SIZE (1 << 9)
+#define LIN_SIZE (1 << 15)
 #define BIN_SIZE (1 << 16)
 #define UNDEFINED 0
 

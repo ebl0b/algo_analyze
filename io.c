@@ -15,7 +15,7 @@ void print_menu(const char** options, int num_options){
 
 void print_results(result_t *results){
     for(int i = 0; i<RESULT_COUNT; i++){
-        printf("%d\t%lf\n", results[i].size, results[i].time);
+        printf("%d\t%.2lf\n", results[i].size, results[i].time);
     }
 }
 

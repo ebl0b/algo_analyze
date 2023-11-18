@@ -16,7 +16,7 @@ static void timer(double *cpu_time, int op){
 	if(op==START){
 		if (frequency.QuadPart == 0) {QueryPerformanceFrequency(&frequency);}
     	QueryPerformanceCounter(&count);
-    	*cpu_time -= ((count.QuadPart / frequency.QuadPart) * BILLION);
+    	*cpu_time -= (((double)count.QuadPart / (double)frequency.QuadPart) * (double)BILLION);
 	}else{
 		QueryPerformanceCounter(&count);
 		*cpu_time += (((double)count.QuadPart / (double)frequency.QuadPart) * (double)BILLION);
@@ -43,11 +43,11 @@ static void benchmark(void_func algorithm, void* params, gen_funcp generator, re
 			timer(&cpu_time, START);
 			algorithm(params);
 			timer(&cpu_time, STOP);
+			avg_cpu_time += GET_AVG_TIME(cpu_time, ITERATION_COUNT);
+			cpu_time = 0;
 		}
-		avg_cpu_time = GET_AVG_TIME(cpu_time, ITERATION_COUNT);
 		results[i].time = avg_cpu_time;
-		results[i].size = ((sort_parameters*)(params))->size;																	
-		cpu_time = 0;
+		results[i].size = ((generic_params*)(params))->size;
 		avg_cpu_time = 0;
 	}
 	free(*((int**)params));

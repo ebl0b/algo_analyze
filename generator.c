@@ -110,7 +110,7 @@ void gen_lin_avg(int scalar, int op, void* params){
 
 void gen_bin_best(int scalar, int op, void* params){
 	search_parameters* search_params = (search_parameters*)params;
-	int size = LIN_SIZE << scalar;
+	int size = BIN_SIZE << scalar;
 	search_params->arr = gen(size, op);
 	for(int i = 0; i<size; i++)
 		search_params->arr[i] = i;
@@ -119,7 +119,7 @@ void gen_bin_best(int scalar, int op, void* params){
 }
 void gen_bin_worst(int scalar, int op, void* params){
 	search_parameters* search_params = (search_parameters*)params;
-	int size = LIN_SIZE << scalar;
+	int size = BIN_SIZE << scalar;
 	search_params->arr = gen(size, op);
 	for(int i = 0; i<size; i++)
 		search_params->arr[i] = i;
@@ -128,7 +128,7 @@ void gen_bin_worst(int scalar, int op, void* params){
 }
 void gen_bin_avg(int scalar, int op, void* params){
 	search_parameters* search_params = (search_parameters*)params;
-	int size = LIN_SIZE << scalar;
+	int size = BIN_SIZE << scalar;
 	search_params->arr = gen(size, op);
 	for(int i = 0; i<size; i++)
 		search_params->arr[i] = i;
