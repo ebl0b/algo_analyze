@@ -8,6 +8,7 @@
 #include "analyze.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 static void timer(double *cpu_time, int op){
 	#ifdef _WIN32
@@ -64,4 +65,16 @@ void search_analyze(gen_funcp generator, search_function algo, result_t* results
 	search_params.search_func = algo;
 	generator(0, MALLOC, (void*)&search_params);
 	benchmark(search_wrapper, (void*)&search_params, generator, results, RESULT_COUNT);
+}
+
+void cmp_results(result_t *results, cmp_result_t *cmp_results){
+	for(int i = 0; i<RESULT_COUNT; i++){
+		cmp_results[i].size = results[i].size;
+		cmp_results[i].cmp[O_N3] = abs(results[i].time - pow(results[i].size, 3));
+		cmp_results[i].cmp[O_N2] = abs(results[i].time - pow(results[i].size, 2));
+		cmp_results[i].cmp[O_NLOGN] = abs(results[i].time - results[i].size * log2(results[i].size));
+		cmp_results[i].cmp[O_N] = abs(results[i].time - results[i].size);
+		cmp_results[i].cmp[O_LOGN] = abs(results[i].time - log2(results[i].size));
+		cmp_results[i].cmp[O_1] = results[i].time;
+	}
 }

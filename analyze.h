@@ -14,10 +14,22 @@ typedef enum{
 	STOP,
 }timer_op;
 
+typedef enum{
+	O_N3, O_N2,
+	O_NLOGN, O_N,
+	O_LOGN, O_1,
+	COMPLEXITY_COUNT
+}complexity_t;
+
 typedef struct{
 	int size;
 	double time;
 }result_t;
+
+typedef struct{
+	int size;
+	double *cmp;
+}cmp_result_t;
 
 typedef void (*sort_function)(int*, int);
 typedef bool (*search_function)(int*, int, int);
@@ -43,6 +55,7 @@ typedef struct{
 
 void sort_analyze(gen_funcp generator, sort_function algo, result_t* results);
 void search_analyze(gen_funcp generator, search_function algo, result_t* results);
+void cmp_results(result_t *results, cmp_result_t *cmp_results);
 #define GET_AVG_TIME(x, y) x/((double)y)
 
 #endif

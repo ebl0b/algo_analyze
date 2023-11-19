@@ -2,6 +2,7 @@ SRC=start.c algorithm.c ui.c io.c analyze.c generator.c
 OBJ=$(patsubst %.c,%.o,$(SRC))
 HDR=algorithm.h ui.h io.h analyze.h generator.h
 CC=gcc
+FLAGS=-lm
 
 prog: $(OBJ)
 	$(CC) -o prog $(OBJ)
@@ -12,7 +13,7 @@ algorithm.o: algorithm.c algorithm.h
 ui.o: ui.c $(HDR)
 	$(CC) -Wall -c $< -o ui.o
 analyze.o: analyze.c algorithm.h generator.h analyze.h
-	$(CC) -Wall -c $< -o analyze.o
+	$(CC) -Wall -c $< -o analyze.o $(FLAGS)
 io.o: io.c io.h analyze.h
 	$(CC) -Wall -c $< -o io.o
 generator.o: generator.c generator.h 

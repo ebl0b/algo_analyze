@@ -6,17 +6,6 @@
 #include "analyze.h"
 #include <stdio.h>
 
-static void create_balanced(int start, int end, int* arr){
-	if(start>end)return;
-	if(start==end)
-		arr[0] = start;
-	else{
-		int mid = (start+end)/2;
-		create_balanced(start, mid, arr);
-		create_balanced(mid+1, end, arr);
-	}
-}
-
 int* gen(int size, int op){
 	static int* arr = NULL;
 	arr = op==MALLOC ? (int*)malloc(size * sizeof(int)) : (int*)realloc(arr, size * sizeof(int));
@@ -60,7 +49,8 @@ void gen_quick_best(int scalar, int op, void* params){
 	sort_parameters* sort_params = (sort_parameters*)params;
 	int size = QUICK_SIZE << scalar;
 	sort_params->arr = gen(size, op);
-	create_balanced(0, size-1, sort_params->arr);
+	for(int i = 0; i<size; i++)
+		sort_params->arr[i] = get_rand(0, size);
 	sort_params->size = size;
 }
 void gen_quick_worst(int scalar, int op, void* params){
