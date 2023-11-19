@@ -15,6 +15,6 @@ ui.o: ui.c $(HDR)
 analyze.o: analyze.c algorithm.h generator.h analyze.h
 	$(CC) -Wall -c $< -o analyze.o $(FLAGS)
 io.o: io.c io.h analyze.h
-	$(CC) -Wall -c $< -o io.o
+	$(CC) -Wall -c $< -o io.o $(FLAGS)
 generator.o: generator.c generator.h 
 	$(CC) -Wall -c $< -o generator.o

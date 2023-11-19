@@ -6,7 +6,7 @@
 #include "analyze.h"
 #include <stdio.h>
 
-int* gen(int size, int op){
+int* get_space(int size, int op){
 	static int* arr = NULL;
 	arr = op==MALLOC ? (int*)malloc(size * sizeof(int)) : (int*)realloc(arr, size * sizeof(int));
 	return arr;
@@ -20,109 +20,40 @@ void init_rand(void){
 	srand((unsigned)time(NULL));
 }
 
-void gen_bubins_best(int scalar, int op, void* params){
+void gen_sortarr(void* gen_params, void* params, gen_op op, int scalar){
+	gen_sort_t* gen_data = (gen_sort_t*)gen_params;
 	sort_parameters* sort_params = (sort_parameters*)params;
-	int size = BUBINS_SIZE << scalar;
-	sort_params->arr = gen(size, op);
-	for(int i = 0; i<size; i++)
-		sort_params->arr[i] = i;
-	sort_params->size = size;
+	sort_params->size = gen_data->size << scalar;
+	sort_params->arr = get_space(sort_params->size, op);
+	gen_data->gen_arr(sort_params->arr, sort_params->size);
 }
-void gen_bubins_worst(int scalar, int op, void* params){
-	sort_parameters* sort_params = (sort_parameters*)params;
-	int size = BUBINS_SIZE << scalar;
-	sort_params->arr = gen(size, op);
-	for(int i = 0; i<size; i++)
-		sort_params->arr[i] = size-i-1;
-	sort_params->size = size;
-}
-void gen_bubins_avg(int scalar, int op, void* params){
-	sort_parameters* sort_params = (sort_parameters*)params;
-	int size = BUBINS_SIZE << scalar;
-	sort_params->arr = gen(size, op);
-	for(int i = 0; i<size; i++)
-		sort_params->arr[i] = get_rand(0, size);
-	sort_params->size = size;
+void gen_searcharr(void* gen_params, void* params, gen_op op, int scalar){
+	gen_search_t* gen_data = (gen_search_t*)gen_params;
+	search_parameters* search_params = (search_parameters*)params;
+	search_params->size = gen_data->size  << scalar;
+	search_params->arr = get_space(search_params->size, op);
+	gen_data->gen_arr(search_params->arr, search_params->size);
+	gen_data->gen_val(search_params->arr, &(search_params->val), search_params->size);
 }
 
-void gen_quick_best(int scalar, int op, void* params){
-	sort_parameters* sort_params = (sort_parameters*)params;
-	int size = QUICK_SIZE << scalar;
-	sort_params->arr = gen(size, op);
-	for(int i = 0; i<size; i++)
-		sort_params->arr[i] = get_rand(0, size);
-	sort_params->size = size;
+void gen_rand_arr(int* arr, int size){
+	for(int i = 0; i < size; i++){arr[i] = get_rand(0, size);}
 }
-void gen_quick_worst(int scalar, int op, void* params){
-	sort_parameters* sort_params = (sort_parameters*)params;
-	int size = QUICK_SIZE << scalar;
-	sort_params->arr = gen(size, op);
-	for(int i = 0; i<size; i++)
-		sort_params->arr[i] = size-i-1;
-	sort_params->size = size;
+void gen_incr_arr(int* arr, int size){
+	for(int i = 0; i < size; i++){arr[i] = i;}
 }
-void gen_quick_avg(int scalar, int op, void* params){
-	sort_parameters* sort_params = (sort_parameters*)params;
-	int size = QUICK_SIZE << scalar;
-	sort_params->arr = gen(size, op);
-	for(int i = 0; i<size; i++)
-		sort_params->arr[i] = get_rand(0, size);
-	sort_params->size = size;
+void gen_decr_arr(int* arr, int size){
+	for(int i = 0; i < size; i++){arr[i] = size-1-i;}
 }
-
-void gen_lin_best(int scalar, int op, void* params){
-	search_parameters* search_params = (search_parameters*)params;
-	int size = LIN_SIZE << scalar;
-	search_params->arr = gen(size, op);
-	for(int i = 0; i<size; i++)
-		search_params->arr[i] = i;
-	search_params->size = size;
-	search_params->val = 0;
+void gen_first_val(int arr[], int* val, int size){
+	*val = arr[0];
 }
-void gen_lin_worst(int scalar, int op, void* params){
-	search_parameters* search_params = (search_parameters*)params;
-	int size = LIN_SIZE << scalar;
-	search_params->arr = gen(size, op);
-	for(int i = 0; i<size; i++)
-		search_params->arr[i] = i;
-	search_params->size = size;
-	search_params->val = size-1;
+void gen_mid_val(int arr[], int* val, int size){
+	*val = arr[size/2];
 }
-void gen_lin_avg(int scalar, int op, void* params){
-	search_parameters* search_params = (search_parameters*)params;
-	int size = LIN_SIZE << scalar;
-	search_params->arr = gen(size, op);
-	for(int i = 0; i<size; i++)
-		search_params->arr[i] = get_rand(0, size);
-	search_params->size = size;
-	search_params->val = search_params->arr[get_rand(0, size)];
+void gen_rand_val(int arr[], int* val, int size){
+	*val = arr[get_rand(0, size)];
 }
-
-void gen_bin_best(int scalar, int op, void* params){
-	search_parameters* search_params = (search_parameters*)params;
-	int size = BIN_SIZE << scalar;
-	search_params->arr = gen(size, op);
-	for(int i = 0; i<size; i++)
-		search_params->arr[i] = i;
-	search_params->size = size;
-	search_params->val = search_params->arr[size/2];
+void gen_last_val(int arr[], int* val, int size){
+	*val = arr[size-1];
 }
-void gen_bin_worst(int scalar, int op, void* params){
-	search_parameters* search_params = (search_parameters*)params;
-	int size = BIN_SIZE << scalar;
-	search_params->arr = gen(size, op);
-	for(int i = 0; i<size; i++)
-		search_params->arr[i] = i;
-	search_params->size = size;
-	search_params->val = size-1;
-}
-void gen_bin_avg(int scalar, int op, void* params){
-	search_parameters* search_params = (search_parameters*)params;
-	int size = BIN_SIZE << scalar;
-	search_params->arr = gen(size, op);
-	for(int i = 0; i<size; i++)
-		search_params->arr[i] = i;
-	search_params->size = size;
-	search_params->val = search_params->arr[get_rand(0, size)];
-}
-

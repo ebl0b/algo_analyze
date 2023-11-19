@@ -58,63 +58,78 @@ void ui_start(){
 				message("Quitting...");
 				exit(0);
 			case BUBBLE_BEST:
-				sort_analyze(gen_bubins_best, bubble_sort, results);
+				{gen_sort_t gen_params = {SIZE_N, gen_incr_arr};
+				sort_analyze((void*)&gen_params, bubble_sort, results);}
 				ui_results(results, O_N);
 				break;
 			case BUBBLE_WORST:
-				sort_analyze(gen_bubins_worst, bubble_sort, results);
+				{gen_sort_t gen_params = {SIZE_N2, gen_decr_arr};
+				sort_analyze((void*)&gen_params, bubble_sort, results);}
 				ui_results(results, O_N2);
 				break;
 			case BUBBLE_AVG:
-				sort_analyze(gen_bubins_avg, bubble_sort, results);
+				{gen_sort_t gen_params = {SIZE_N2, gen_rand_arr};
+				sort_analyze((void*)&gen_params, bubble_sort, results);}
 				ui_results(results, O_N2);
 				break;
 			case INSERTION_BEST:
-				sort_analyze(gen_bubins_best, insertion_sort, results);
+				{gen_sort_t gen_params = {SIZE_N, gen_incr_arr};
+				sort_analyze((void*)&gen_params, insertion_sort, results);}
 				ui_results(results, O_N);
 				break;
 			case INSERTION_WORST:
-				sort_analyze(gen_bubins_worst, insertion_sort, results);
+				{gen_sort_t gen_params = {SIZE_N2, gen_decr_arr};
+				sort_analyze((void*)&gen_params, insertion_sort, results);}
 				ui_results(results, O_N2);
 				break;
 			case INSERTION_AVG:
-				sort_analyze(gen_bubins_avg, insertion_sort, results);
+				{gen_sort_t gen_params = {SIZE_N2, gen_rand_arr};
+				sort_analyze((void*)&gen_params, insertion_sort, results);}
 				ui_results(results, O_N2);
 				break;
 			case QUICK_BEST:
-				sort_analyze(gen_quick_best, quick_sort, results);
+				{gen_sort_t gen_params = {SIZE_NLOGN, gen_rand_arr};
+				sort_analyze((void*)&gen_params, quick_sort, results);}
 				ui_results(results, O_NLOGN);
 				break;
 			case QUICK_WORST:
-				sort_analyze(gen_quick_worst, quick_sort, results);
+				{gen_sort_t gen_params = {SIZE_N2, gen_decr_arr};
+				sort_analyze((void*)&gen_params, quick_sort, results);}
 				ui_results(results, O_N2);
 				break;
 			case QUICK_AVG:
-				sort_analyze(gen_quick_avg, quick_sort, results);
+				{gen_sort_t gen_params = {SIZE_NLOGN, gen_rand_arr};
+				sort_analyze((void*)&gen_params, quick_sort, results);}
 				ui_results(results, O_NLOGN);
 				break;
 			case LINEAR_BEST:
-				search_analyze(gen_lin_best, linear_search, results);
+				{gen_search_t gen_params = {SIZE_1, gen_incr_arr, gen_first_val};
+				search_analyze((void*)&gen_params, linear_search, results);}
 				ui_results(results, O_1);
 				break;
 			case LINEAR_WORST:
-				search_analyze(gen_lin_worst, linear_search, results);
+				{gen_search_t gen_params = {SIZE_N, gen_incr_arr, gen_last_val};
+				search_analyze((void*)&gen_params, linear_search, results);}
 				ui_results(results, O_N);
 				break;
 			case LINEAR_AVG:
-				search_analyze(gen_lin_avg, linear_search, results);
+				{gen_search_t gen_params = {SIZE_N, gen_incr_arr, gen_rand_val};
+				search_analyze((void*)&gen_params, linear_search, results);}
 				ui_results(results, O_N);
 				break;
 			case BINARY_BEST:
-				search_analyze(gen_bin_best, binary_search, results);
+				{gen_search_t gen_params = {SIZE_1, gen_incr_arr, gen_mid_val};
+				search_analyze((void*)&gen_params, binary_search, results);}
 				ui_results(results, O_1);
 				break;
 			case BINARY_WORST:
-				search_analyze(gen_bin_worst, binary_search, results);
+				{gen_search_t gen_params = {SIZE_LOGN, gen_incr_arr, gen_last_val};
+				search_analyze((void*)&gen_params, binary_search, results);}
 				ui_results(results, O_LOGN);
 				break;
 			case BINARY_AVG:
-				search_analyze(gen_bin_avg, binary_search, results);
+				{gen_search_t gen_params = {SIZE_LOGN, gen_incr_arr, gen_rand_val};
+				search_analyze((void*)&gen_params, binary_search, results);}
 				ui_results(results, O_LOGN);
 				break;
 			default:
