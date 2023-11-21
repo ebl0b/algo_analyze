@@ -85,7 +85,7 @@ void ui_start(){
 				ui_results(results, O_N2);
 				break;
 			case QUICK_BEST:
-				{gen_sort_t gen_params = {SIZE_NLOGN, gen_rand_arr};
+				{gen_sort_t gen_params = {SIZE_NLOGN, gen_balanced_arr};
 				sort_analyze((void*)&gen_params, quick_sort, results);}
 				ui_results(results, O_NLOGN);
 				break;

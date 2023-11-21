@@ -6,7 +6,7 @@
 #define ANALYZE_H
 
 #define RESULT_COUNT 7
-#define ITERATION_COUNT 50
+#define ITERATION_COUNT 150
 #define BILLION 1000000000LL
 
 typedef enum{

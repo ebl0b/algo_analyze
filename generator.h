@@ -37,6 +37,7 @@ void gen_first_val(int arr[], int* val, int size);
 void gen_mid_val(int arr[], int* val, int size);
 void gen_rand_val(int arr[], int* val, int size);
 void gen_last_val(int arr[], int* val, int size);
+void gen_balanced_arr(int* arr, int size);
 
 int* get_space(int size, int op);
 int get_rand(int low, int high);

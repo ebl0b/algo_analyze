@@ -19,18 +19,14 @@ void print_menu(const char** options, int num_options){
 }
 
 void print_results(double cmp_results_matrix[][COMPLEXITY_COUNT], result_t* results, complexity_t O){
-    const char* complexity_str[] = {"---", "O(n^3)", "O(n^2)", "O(n*log2(n))", "O(n)", "O(log2(n))", "O(1)", "---"};
-    char padded_str_size[COLUMN_PADDING];
-    char padded_str_T[COLUMN_PADDING];
-    sprintf(padded_str_size, "%-16s", "Size");
-    sprintf(padded_str_T, "%-16s", "T(ns)");
+    const char* complexity_str[] = {"N/A", "T/(n^3)", "T/(n^2)", "T/(n*log2(n))", "T/(n)", "T/(log2(n))", "T/(1)", "N/A"};
     puts("");
     puts("_________________________________________________________________________________________________");
-    printf("| %s\t| %s\t| %-10s\t| %-10s\t| %-10s\t|\n",  padded_str_size, 
-                                                        padded_str_T,
-                                                        complexity_str[O-1], 
-                                                        complexity_str[O], 
-                                                        complexity_str[O+1]);
+    printf("| %-16s\t| %-16s\t| %-10s\t| %-10s\t| %-10s\t|\n",  "Size", 
+                                                                "T(ns)",
+                                                                complexity_str[O-1], 
+                                                                complexity_str[O], 
+                                                                complexity_str[O+1]);
     puts("|_______________________|_______________________|_______________|_______________|_______________|");
     for(int i = 0; i<RESULT_COUNT; i++){
         printf("| %-16d\t| %-16.1lf\t| %-10.4e\t| %-10.4e\t| %-10.4e\t|\n",    results[i].size,        

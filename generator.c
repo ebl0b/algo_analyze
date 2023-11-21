@@ -6,6 +6,26 @@
 #include "analyze.h"
 #include <stdio.h>
 
+static void swap(int *x, int *y){
+	int tmp = *x;
+	*x = *y;
+	*y = tmp;
+}
+
+static void balance_arr(int arr[], int start, int end, int swapi){
+    if (start >= end) { return; }
+
+    int mid = start + (end - start) / 2;
+    swap(&arr[swapi], &arr[mid]);
+
+    if (mid + 1 <= end) {
+        balance_arr(arr, mid + 1, end, mid);
+    }
+    if (start <= mid - 1) {
+        balance_arr(arr, start, mid - 1, mid - 1);
+    }
+}
+
 int* get_space(int size, int op){
 	static int* arr = NULL;
 	arr = op==MALLOC ? (int*)malloc(size * sizeof(int)) : (int*)realloc(arr, size * sizeof(int));
@@ -57,3 +77,8 @@ void gen_rand_val(int arr[], int* val, int size){
 void gen_last_val(int arr[], int* val, int size){
 	*val = arr[size-1];
 }
+void gen_balanced_arr(int* arr, int size){
+	gen_incr_arr(arr, size);
+	balance_arr(arr, 0, size-1, size-1);
+}
+
