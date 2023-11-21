@@ -31,12 +31,9 @@ static void cls(){
 }
 
 static void ui_results(result_t *results, complexity_t O){
-	cmp_result_t cmp_results_arr[RESULT_COUNT];
-	double tmp[RESULT_COUNT][COMPLEXITY_COUNT];
-	for(int i = 0; i<RESULT_COUNT; i++)
-		cmp_results_arr[i].cmp = tmp[i];
-	cmp_results(results, cmp_results_arr);
-	print_results(cmp_results_arr, O);
+	double cmp_results_matrix[RESULT_COUNT][COMPLEXITY_COUNT];
+	cmp_results(results, cmp_results_matrix);
+	print_results(cmp_results_matrix, results, O);
 }
 
 //public

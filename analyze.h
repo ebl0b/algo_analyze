@@ -5,8 +5,8 @@
 #ifndef ANALYZE_H
 #define ANALYZE_H
 
-#define RESULT_COUNT 6
-#define ITERATION_COUNT 30
+#define RESULT_COUNT 7
+#define ITERATION_COUNT 50
 #define BILLION 1000000000LL
 
 typedef enum{
@@ -57,7 +57,7 @@ typedef struct{
 
 void sort_analyze(void* generator, sort_function algo, result_t* results);
 void search_analyze(void* generator, search_function algo, result_t* results);
-void cmp_results(result_t *results, cmp_result_t *cmp_results);
+void cmp_results(result_t *results, double cmp_results[][COMPLEXITY_COUNT]);
 #define GET_AVG_TIME(x, y) x/((double)y)
 
 #endif

@@ -67,16 +67,15 @@ void search_analyze(void* gen_params, search_function algo, result_t* results){
 	benchmark(search_wrapper, (void*)&search_params, gen_searcharr, gen_params, results, RESULT_COUNT);
 }
 
-void cmp_results(result_t *results, cmp_result_t *cmp_results){
+void cmp_results(result_t *results, double cmp_results[][COMPLEXITY_COUNT]){
 	for(int i = 0; i<RESULT_COUNT; i++){
-		cmp_results[i].size = results[i].size;
-		cmp_results[i].cmp[PADDING1] = NAN;
-		cmp_results[i].cmp[O_N3] = abs(results[i].time - pow(results[i].size, 3));
-		cmp_results[i].cmp[O_N2] = abs(results[i].time - pow(results[i].size, 2));
-		cmp_results[i].cmp[O_NLOGN] = abs(results[i].time - results[i].size * log2(results[i].size));
-		cmp_results[i].cmp[O_N] = abs(results[i].time - results[i].size);
-		cmp_results[i].cmp[O_LOGN] = abs(results[i].time - log2(results[i].size));
-		cmp_results[i].cmp[O_1] = results[i].time;
-		cmp_results[i].cmp[PADDING2] = NAN;
+		cmp_results[i][PADDING1] = NAN;
+		cmp_results[i][O_N3] = (double)((long double)results[i].time / pow((long double)results[i].size, 3));
+		cmp_results[i][O_N2] = results[i].time / pow(results[i].size, 2);
+		cmp_results[i][O_NLOGN] = results[i].time / results[i].size * log2(results[i].size);
+		cmp_results[i][O_N] = results[i].time / results[i].size;
+		cmp_results[i][O_LOGN] = results[i].time / log2(results[i].size);
+		cmp_results[i][O_1] = results[i].time;
+		cmp_results[i][PADDING2] = NAN;
 	}
 }
